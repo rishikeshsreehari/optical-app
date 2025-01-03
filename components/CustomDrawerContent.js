@@ -1,7 +1,8 @@
 // components/CustomDrawerContent.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { ListItem, Icon, Text, Divider } from '@rneui/themed';
 
 const CustomDrawerContent = ({ navigation }) => {
   const [expandedCategory, setExpandedCategory] = useState(null);
@@ -18,92 +19,135 @@ const CustomDrawerContent = ({ navigation }) => {
     ]
   };
 
-  const toggleCategory = (category) => {
-    setExpandedCategory(expandedCategory === category ? null : category);
+  const getMenuIcon = (menuItem) => {
+    switch(menuItem.toLowerCase()) {
+      case 'home':
+        return { name: 'home', type: 'material' };
+      case 'lens types':
+        return { name: 'visibility', type: 'material' };
+      case 'materials':
+        return { name: 'layers', type: 'material' };
+      case 'coating':
+        return { name: 'palette', type: 'material' };
+      case 'filter':
+        return { name: 'filter-list', type: 'material' };
+      case 'contact':
+        return { name: 'contact-mail', type: 'material' };
+      case 'about':
+        return { name: 'info', type: 'material' };
+      case 'language':
+        return { name: 'language', type: 'material' };
+      default:
+        return { name: 'lens', type: 'material' };
+    }
   };
 
   return (
     <DrawerContentScrollView>
-      <TouchableOpacity
-        style={styles.menuItem}
-        onPress={() => navigation.navigate('Home')}
+      <View style={styles.header}>
+        <Text h4 style={styles.headerText}>Pixel Opticals</Text>
+      </View>
+      
+      <ListItem
+        onPress={() => navigation.navigate('Main', { screen: 'Home' })}
+        containerStyle={styles.listItem}
       >
-        <Text style={styles.menuText}>Home</Text>
-      </TouchableOpacity>
+        <Icon {...getMenuIcon('home')} color="#2089dc" />
+        <ListItem.Content>
+          <ListItem.Title style={styles.listItemTitle}>Home</ListItem.Title>
+        </ListItem.Content>
+      </ListItem>
 
       {Object.entries(menuStructure).map(([category, items]) => (
         <View key={category}>
-          <TouchableOpacity
-            style={styles.categoryHeader}
-            onPress={() => toggleCategory(category)}
+          <ListItem
+            onPress={() => setExpandedCategory(expandedCategory === category ? null : category)}
+            containerStyle={styles.listItem}
           >
-            <Text style={styles.menuText}>{category}</Text>
-            <Text style={styles.arrow}>
-              {expandedCategory === category ? '▼' : '▶'}
-            </Text>
-          </TouchableOpacity>
+            <Icon {...getMenuIcon(category)} color="#2089dc" />
+            <ListItem.Content>
+              <ListItem.Title style={styles.listItemTitle}>{category}</ListItem.Title>
+            </ListItem.Content>
+            <Icon
+              name={expandedCategory === category ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
+              type="material"
+              color="#666"
+            />
+          </ListItem>
           
-          {expandedCategory === category && items.map((item) => (
-  <TouchableOpacity
-    key={item}
-    style={styles.submenuItem}
-    onPress={() => {
-      navigation.navigate('Main', {
-        screen: 'Product',
-        params: { title: item }
-      });
-    }}
-  >
-    <Text style={styles.submenuText}>{item}</Text>
-  </TouchableOpacity>
-))}
+          {expandedCategory === category && (
+            <View style={styles.submenuContainer}>
+              {items.map((item) => (
+                <ListItem
+                  key={item}
+                  onPress={() => {
+                    navigation.navigate('Main', {
+                      screen: 'Product',
+                      params: { title: item }
+                    });
+                  }}
+                  containerStyle={styles.submenuItem}
+                >
+                  <Icon name="panorama-fish-eye" type="material" size={8} color="#666" />
+                  <ListItem.Content>
+                    <ListItem.Title style={styles.submenuText}>{item}</ListItem.Title>
+                  </ListItem.Content>
+                </ListItem>
+              ))}
+            </View>
+          )}
         </View>
       ))}
 
-      <View style={styles.divider} />
+      <Divider style={styles.divider} />
 
       {['Filter', 'Contact', 'About', 'Language'].map((item) => (
-        <TouchableOpacity
+        <ListItem
           key={item}
-          style={styles.menuItem}
-          onPress={() => navigation.navigate(item)}
+          onPress={() => navigation.navigate('Main', { screen: item })}
+          containerStyle={styles.listItem}
         >
-          <Text style={styles.menuText}>{item}</Text>
-        </TouchableOpacity>
+          <Icon {...getMenuIcon(item)} color="#2089dc" />
+          <ListItem.Content>
+            <ListItem.Title style={styles.listItemTitle}>{item}</ListItem.Title>
+          </ListItem.Content>
+        </ListItem>
       ))}
     </DrawerContentScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  menuItem: {
-    padding: 15,
+  header: {
+    padding: 16,
+    backgroundColor: '#2089dc',
+    marginBottom: 8,
   },
-  menuText: {
+  headerText: {
+    color: '#fff',
+    textAlign: 'center',
+  },
+  listItem: {
+    paddingVertical: 12,
+  },
+  listItemTitle: {
     fontSize: 16,
   },
-  categoryHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 15,
-  },
-  arrow: {
-    fontSize: 12,
+  submenuContainer: {
+    backgroundColor: '#f9f9f9',
   },
   submenuItem: {
-    padding: 15,
-    paddingLeft: 30,
-    backgroundColor: '#f5f5f5',
+    paddingLeft: 50,
+    backgroundColor: '#f9f9f9',
   },
   submenuText: {
     fontSize: 14,
     color: '#666',
   },
   divider: {
-    height: 1,
+    marginVertical: 8,
     backgroundColor: '#e0e0e0',
-    marginVertical: 15,
+    height: 1,
   }
 });
 
