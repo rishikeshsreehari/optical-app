@@ -8,6 +8,7 @@ import { View } from 'react-native';
 import { Text } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from '@rneui/themed';
+import PolarizedPage from './components/PolarizedPage';
 
 // Import components
 import HomeScreen from './components/HomeScreen';
@@ -82,6 +83,14 @@ function MainStack() {
          title: route.params?.title 
        })}
      />
+     <Stack.Screen 
+        name="PolarizedPage" 
+        component={PolarizedPage}
+        options={{
+          headerShown: true,
+          title: 'Polarized Lenses'
+        }}
+      />
      <Stack.Screen name="Filter" component={FilterScreen} />
      <Stack.Screen name="Contact" component={ContactScreen} />
      <Stack.Screen name="About" component={AboutScreen} />

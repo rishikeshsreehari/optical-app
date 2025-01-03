@@ -34,10 +34,11 @@ const categories = [
           image: require('../assets/images/home/sports.jpg')
         },
         {
-          name: 'Drive',
-          description: 'For driving',
-          image: require('../assets/images/home/driving.jpg')
-        }
+            name: 'Polarized',
+            description: 'Reduces glare',
+            image: require('../assets/images/home/driving.jpg'),
+            specialRoute: 'PolarizedPage'  // Add this line
+          }
       ]
     },
     { 
@@ -57,7 +58,8 @@ const categories = [
         {
           name: 'Polarized',
           description: 'Reduces glare',
-          image: null
+          image: null,
+          specialRoute: 'PolarizedPage'  // Add this line
         },
         {
           name: 'Tints',
@@ -111,14 +113,20 @@ const HomeScreen = ({ navigation }) => {
           <View style={styles.tilesContainer}>
             {category.items.map((item) => (
               <TouchableOpacity
-                key={item.name}
-                style={styles.tile}
-                onPress={() => navigation.navigate('Product', { 
-                  title: item.name,
-                  description: item.description,
-                  image: item.image
-                })}
-              >
+              key={item.name}
+              style={styles.tile}
+              onPress={() => {
+                if (item.specialRoute) {
+                  navigation.navigate(item.specialRoute);
+                } else {
+                  navigation.navigate('Product', { 
+                    title: item.name,
+                    description: item.description,
+                    image: item.image
+                  });
+                }
+              }}
+            >
                 <View style={styles.tileContent}>
                   {item.image ? (
                     <Card.Image
