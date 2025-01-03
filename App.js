@@ -14,11 +14,22 @@ import HomeScreen from './components/HomeScreen';
 import CustomDrawerContent from './components/CustomDrawerContent';
 
 const theme = {
- lightColors: {
-   primary: '#2089dc',
-   secondary: '#ad1457',
-   background: '#ffffff',
- }
+  lightColors: {
+    primary: '#1e88e5',       // Modern blue
+    secondary: '#5e35b1',     // Deep purple
+    background: '#ffffff',
+    grey0: '#f8f9fa',        // Light grey for backgrounds
+    grey1: '#f1f3f5',        // Slightly darker grey
+    grey2: '#e9ecef',        // For borders
+  },
+  Button: {
+    raised: true,
+    borderRadius: 8,
+  },
+  Card: {
+    borderRadius: 12,
+    padding: 15,
+  }
 };
 
 // Placeholder components

@@ -10,32 +10,33 @@ const categories = [
         {
           name: 'Single Vision',
           description: 'For single distance',
-          image: null
+          image: require('../assets/images/home/single-vision.jpg')
         },
         {
           name: 'Bifocal',
           description: 'Two viewing areas',
-          image: null
+          image: require('../assets/images/home/bifocals.jpg')
+
+          
         },
         {
           name: 'Progressive',
           description: 'Seamless transition',
-          image: null
-        },
+          image: require('../assets/images/home/progressive.jpg')},
         {
           name: 'Office',
           description: 'Computer work',
-          image: null
+          image: require('../assets/images/home/office.jpg')
         },
         {
           name: 'Sports',
           description: 'Active lifestyle',
-          image: null
+          image: require('../assets/images/home/sports.jpg')
         },
         {
           name: 'Drive',
           description: 'For driving',
-          image: null
+          image: require('../assets/images/home/driving.jpg')
         }
       ]
     },
@@ -142,65 +143,69 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 10,
-  },
-  categoryTitle: {
-    textAlign: 'center',
-    marginVertical: 15,
-    color: '#2089dc',
-    fontWeight: 'bold',
-  },
-  tilesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  tile: {
-    width: '31%', // slightly less than 33.33% to account for spacing
-    marginBottom: 15,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 8,
-    overflow: 'hidden',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-  },
-  tileContent: {
-    padding: 8,
-  },
-  tileImage: {
-    height: 80,
-    borderRadius: 4,
-    marginBottom: 8,
-  },
-  placeholderTile: {
-    height: 80,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 4,
-    marginBottom: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  placeholderText: {
-    color: '#666',
-    fontSize: 12,
-  },
-  tileName: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 4,
-  },
-  tileDescription: {
-    fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
-  }
-});
+    container: {
+      flex: 1,
+      backgroundColor: '#f8f9fa',
+      padding: 12,
+    },
+    categoryTitle: {
+      textAlign: 'center',
+      marginVertical: 20,
+      color: '#1e88e5',
+      fontSize: 24,
+      fontWeight: 'bold',
+    },
+    tilesContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      paddingHorizontal: 4,
+    },
+    tile: {
+      width: '31%',
+      marginBottom: 16,
+      backgroundColor: '#ffffff',
+      borderRadius: 12,
+      overflow: 'hidden',
+      elevation: 3,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+    },
+    tileContent: {
+      padding: 12,
+    },
+    tileImage: {
+      height: 90,
+      borderRadius: 8,
+      marginBottom: 10,
+    },
+    placeholderTile: {
+      height: 90,
+      backgroundColor: '#f1f3f5',
+      borderRadius: 8,
+      marginBottom: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    placeholderText: {
+      color: '#868e96',
+      fontSize: 12,
+    },
+    tileName: {
+      fontSize: 14,
+      fontWeight: '600',
+      textAlign: 'center',
+      marginBottom: 6,
+      color: '#333',
+    },
+    tileDescription: {
+      fontSize: 12,
+      color: '#868e96',
+      textAlign: 'center',
+      lineHeight: 16,
+    }
+  });
 
 export default HomeScreen;

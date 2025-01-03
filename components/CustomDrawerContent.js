@@ -43,18 +43,22 @@ const CustomDrawerContent = ({ navigation }) => {
   };
 
   return (
-    <DrawerContentScrollView>
+    <DrawerContentScrollView 
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <View style={styles.header}>
-        <Text h4 style={styles.headerText}>Pixel Opticals</Text>
+        <Text h3 style={styles.headerTitle}>Pixel Opticals</Text>
+        <Text style={styles.headerSubtitle}>Premium Eye Care</Text>
       </View>
       
       <ListItem
         onPress={() => navigation.navigate('Main', { screen: 'Home' })}
-        containerStyle={styles.listItem}
+        containerStyle={styles.menuItem}
       >
-        <Icon {...getMenuIcon('home')} color="#2089dc" />
+        <Icon name="home" type="material" color="#1e88e5" size={24} />
         <ListItem.Content>
-          <ListItem.Title style={styles.listItemTitle}>Home</ListItem.Title>
+          <ListItem.Title style={styles.menuText}>Home</ListItem.Title>
         </ListItem.Content>
       </ListItem>
 
@@ -62,16 +66,19 @@ const CustomDrawerContent = ({ navigation }) => {
         <View key={category}>
           <ListItem
             onPress={() => setExpandedCategory(expandedCategory === category ? null : category)}
-            containerStyle={styles.listItem}
+            containerStyle={[
+              styles.menuItem,
+              expandedCategory === category && styles.activeMenuItem
+            ]}
           >
-            <Icon {...getMenuIcon(category)} color="#2089dc" />
+            <Icon {...getMenuIcon(category)} color="#1e88e5" size={24} />
             <ListItem.Content>
-              <ListItem.Title style={styles.listItemTitle}>{category}</ListItem.Title>
+              <ListItem.Title style={styles.menuText}>{category}</ListItem.Title>
             </ListItem.Content>
             <Icon
               name={expandedCategory === category ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
               type="material"
-              color="#666"
+              color="#1e88e5"
             />
           </ListItem>
           
@@ -88,7 +95,7 @@ const CustomDrawerContent = ({ navigation }) => {
                   }}
                   containerStyle={styles.submenuItem}
                 >
-                  <Icon name="panorama-fish-eye" type="material" size={8} color="#666" />
+                  <View style={styles.submenuDot} />
                   <ListItem.Content>
                     <ListItem.Title style={styles.submenuText}>{item}</ListItem.Title>
                   </ListItem.Content>
@@ -105,11 +112,11 @@ const CustomDrawerContent = ({ navigation }) => {
         <ListItem
           key={item}
           onPress={() => navigation.navigate('Main', { screen: item })}
-          containerStyle={styles.listItem}
+          containerStyle={styles.menuItem}
         >
-          <Icon {...getMenuIcon(item)} color="#2089dc" />
+          <Icon {...getMenuIcon(item)} color="#1e88e5" size={24} />
           <ListItem.Content>
-            <ListItem.Title style={styles.listItemTitle}>{item}</ListItem.Title>
+            <ListItem.Title style={styles.menuText}>{item}</ListItem.Title>
           </ListItem.Content>
         </ListItem>
       ))}
@@ -118,35 +125,71 @@ const CustomDrawerContent = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  contentContainer: {
+    paddingTop: 0,
+  },
   header: {
-    padding: 16,
-    backgroundColor: '#2089dc',
-    marginBottom: 8,
+    backgroundColor: '#1e88e5',
+    padding: 20,
+    paddingTop: 40,
+    marginBottom: 20,
   },
-  headerText: {
-    color: '#fff',
-    textAlign: 'center',
+  headerTitle: {
+    color: '#ffffff',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
-  listItem: {
-    paddingVertical: 12,
+  headerSubtitle: {
+    color: '#ffffff',
+    opacity: 0.8,
+    fontSize: 14,
   },
-  listItemTitle: {
+  menuItem: {
+    padding: 12,
+    marginHorizontal: 8,
+    marginVertical: 4,
+    borderRadius: 8,
+    backgroundColor: '#ffffff',
+  },
+  activeMenuItem: {
+    backgroundColor: '#f1f3f5',
+  },
+  menuText: {
     fontSize: 16,
+    fontWeight: '500',
+    color: '#333',
   },
   submenuContainer: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#f8f9fa',
+    marginLeft: 16,
+    marginRight: 8,
+    borderRadius: 8,
+    overflow: 'hidden',
   },
   submenuItem: {
     paddingLeft: 50,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: 'transparent',
+  },
+  submenuDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#1e88e5',
+    marginRight: 8,
   },
   submenuText: {
     fontSize: 14,
     color: '#666',
   },
   divider: {
-    marginVertical: 8,
-    backgroundColor: '#e0e0e0',
+    marginVertical: 16,
+    marginHorizontal: 16,
+    backgroundColor: '#e9ecef',
     height: 1,
   }
 });
