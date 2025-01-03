@@ -37,29 +37,27 @@ const LanguageScreen = () => (
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
+// App.js
 function MainStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,  // Hide stack navigator header
+      }}
+    >
       <Stack.Screen 
         name="Home" 
         component={HomeScreen}
-        options={{
-          headerTitle: ''
-        }}
       />
       <Stack.Screen 
         name="Product" 
         component={ProductPage}
-        options={({ route }) => ({ title: route.params.title })}
+        options={({ route }) => ({ 
+          headerShown: true,  // Show header only for product pages
+          title: route.params.title 
+        })}
       />
-      <Stack.Screen name="Filter" component={FilterScreen} />
-      <Stack.Screen name="Contact" component={ContactScreen} />
-      <Stack.Screen name="About" component={AboutScreen} />
-      <Stack.Screen 
-        name="Change Language" 
-        component={LanguageScreen}
-        options={{ title: 'Change Language' }}
-      />
+      {/* Other stack screens... */}
     </Stack.Navigator>
   );
 }
@@ -69,14 +67,24 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
+        screenOptions={{
+          headerTitle: 'Pixel Opticals',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            height: 60,
+            borderBottomWidth: 0,  // Remove border bottom
+            elevation: 0,  // Remove shadow on Android
+            shadowOpacity: 0,  // Remove shadow on iOS
+          },
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: 'bold',
+          }
+        }}
       >
         <Drawer.Screen 
           name="Main" 
           component={MainStack}
-          options={{
-            headerShown: true,
-            headerTitle: ''
-          }}
         />
       </Drawer.Navigator>
     </NavigationContainer>

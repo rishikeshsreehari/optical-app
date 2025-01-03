@@ -1,30 +1,25 @@
 // components/CustomDrawerContent.js
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 const CustomDrawerContent = ({ navigation }) => {
+  const [expandedCategory, setExpandedCategory] = useState(null);
+
   const menuStructure = {
     'Lens Types': [
-      'Single Vision',
-      'Bifocal',
-      'Progressive',
-      'Office',
-      'Sports',
-      'Drive'
+      'Single Vision', 'Bifocal', 'Progressive', 'Office', 'Sports', 'Drive'
     ],
     'Materials': [
-      'BXM',
-      'Photochromic',
-      'Polarized',
-      'Tints',
-      'Thickness'
+      'BXM', 'Photochromic', 'Polarized', 'Tints', 'Thickness'
     ],
     'Coating': [
-      'Protective Coating',
-      'Mirror Coating',
-      'Specialized Coating'
+      'Protective Coating', 'Mirror Coating', 'Specialized Coating'
     ]
+  };
+
+  const toggleCategory = (category) => {
+    setExpandedCategory(expandedCategory === category ? null : category);
   };
 
   return (
@@ -37,24 +32,37 @@ const CustomDrawerContent = ({ navigation }) => {
       </TouchableOpacity>
 
       {Object.entries(menuStructure).map(([category, items]) => (
-        <View key={category} style={styles.categoryContainer}>
-          <Text style={styles.categoryTitle}>{category}</Text>
-          {items.map((item) => (
-            <TouchableOpacity
-              key={item}
-              style={styles.submenuItem}
-              onPress={() => navigation.navigate('Product', { title: item })}
-            >
-              <Text style={styles.submenuText}>{item}</Text>
-            </TouchableOpacity>
-          ))}
+        <View key={category}>
+          <TouchableOpacity
+            style={styles.categoryHeader}
+            onPress={() => toggleCategory(category)}
+          >
+            <Text style={styles.menuText}>{category}</Text>
+            <Text style={styles.arrow}>
+              {expandedCategory === category ? '▼' : '▶'}
+            </Text>
+          </TouchableOpacity>
+          
+          {expandedCategory === category && items.map((item) => (
+  <TouchableOpacity
+    key={item}
+    style={styles.submenuItem}
+    onPress={() => {
+      navigation.navigate('Main', {
+        screen: 'Product',
+        params: { title: item }
+      });
+    }}
+  >
+    <Text style={styles.submenuText}>{item}</Text>
+  </TouchableOpacity>
+))}
         </View>
       ))}
 
       <View style={styles.divider} />
 
-      {/* Additional menu items */}
-      {['Filter', 'Contact', 'About', 'Change Language'].map((item) => (
+      {['Filter', 'Contact', 'About', 'Language'].map((item) => (
         <TouchableOpacity
           key={item}
           style={styles.menuItem}
@@ -74,18 +82,19 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 16,
   },
-  categoryContainer: {
-    marginTop: 10,
-  },
-  categoryTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  categoryHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 15,
-    color: '#333',
+  },
+  arrow: {
+    fontSize: 12,
   },
   submenuItem: {
     padding: 15,
     paddingLeft: 30,
+    backgroundColor: '#f5f5f5',
   },
   submenuText: {
     fontSize: 14,
@@ -95,7 +104,6 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#e0e0e0',
     marginVertical: 15,
-    marginHorizontal: 15,
   }
 });
 

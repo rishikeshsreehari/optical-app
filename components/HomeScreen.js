@@ -32,36 +32,37 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  categoryContainer: {
-    marginBottom: 20,
-    alignItems: 'center', // Center align the category container
-  },
-  categoryTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center', // Center align the title text
-  },
-  tilesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    width: '100%', // Ensure the tiles container takes full width
-  },
-  tile: {
-    width: '48%',
-    backgroundColor: '#e0e0e0',
-    padding: 20,
-    borderRadius: 8,
-    marginBottom: 10,
-  },
-  tileText: {
-    textAlign: 'center',
-  },
-});
-
+    container: {
+      flex: 1,
+      padding: 10,
+      backgroundColor: '#fff',
+    },
+    categoryContainer: {
+      marginBottom: 20,
+      alignItems: 'center',
+    },
+    categoryTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      textAlign: 'center',
+    },
+    tilesContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    tile: {
+      width: '48%',
+      backgroundColor: '#e0e0e0',
+      padding: 20,
+      borderRadius: 8,
+      marginBottom: 10,
+    },
+    tileText: {
+      textAlign: 'center',
+    }
+  });
+  
 export default HomeScreen;
